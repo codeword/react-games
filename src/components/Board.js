@@ -7,8 +7,9 @@ export default function Board(props){
       >
         {row.map((item, colIdx) => (
             <Square
+              currentPlayer={props.currentPlayer}
               key={colIdx}
-              data-testid={`square-${rowIdx}-${colIdx}`}
+              id={`square-${rowIdx}-${colIdx}`}
               value={item}
               onClick={() => props.onClick(rowIdx,colIdx)}
               isWinner={props.isWinner(rowIdx, colIdx)}
@@ -16,5 +17,5 @@ export default function Board(props){
         ))}
       </div>
   ))
-  return <div>{board}</div>;
+  return <div className="game-board">{board}</div>;
 }

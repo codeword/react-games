@@ -32,12 +32,32 @@ ol, ul {
   width: 34px;
 }
 
-.square.winner {
-  background: #3ee86b;
+.game.over .square {
+  background-color: #eee;
+}
+
+.square:hover {
+  background-color: aqua;
+  color: #555
+}
+
+.square:hover:disabled,
+.square:disabled {
+  background-color: #eee;
+  color: #000;
+}
+
+.square.winner:disabled {
+  background-color: #3ee86b;
 }
 
 .square:focus {
   outline: none;
+}
+
+button {
+  color: #000;
+  background-color: #888;
 }
 
 .kbd-navigation .square:focus {
