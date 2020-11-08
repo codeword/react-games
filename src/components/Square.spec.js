@@ -1,56 +1,41 @@
 import React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
+import '@testing-library/jest-dom';
+import {cleanup, render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event';
 import { act } from "react-dom/test-utils";
 import Square from './Square';
 
-let container = null;
-beforeEach(() => {
-  // setup a DOM element as a render target
-  container = document.createElement("div");
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  // cleanup on exiting
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
-
 describe('Square', () => {
-  let onClick;
-
-  beforeEach(() => {
-    onClick = jest.fn();
-    act(() => {
-      render(<Square value="Foo" onClick={onClick}/>, container);
-    });
-  });
+  let onClick, button;
+  let setup = (props) => {
+    return () => {
+      onClick = jest.fn();
+      props.onClick = onClick;
+      cleanup();
+      act(() => {render(<Square {...props}/>);});
+      button = screen.getByRole('button');
+    }
+  };
+  beforeEach(setup({value: "Foo"}))
+  afterEach(cleanup);
   it('renders the passed in content', () => {
-    expect(container.querySelector('.square').textContent).toEqual('Foo');
+    expect(button).toHaveTextContent('Foo');
   });
-
   it('shows winning squares', () => {
-    expect(container.querySelector('.square')).toBeDefined();
-    expect(container.querySelector('.square.winner')).toBeNull();
+    expect(button).not.toHaveClass('winner');
 
-    act(() => {
-      render(<Square value="Foo" isWinner={false}/>, container);
-    });
+    setup({isWinner: false})();
 
-    expect(container.querySelector('.square')).toBeDefined();
-    expect(container.querySelector('.square.winner')).toBeNull();
+    expect(button).not.toHaveClass('winner');
 
-    act(() => {
-      render(<Square value="Foo" isWinner={true}/>, container);
-    });
-    expect(container.querySelector('.square.winner')).toBeDefined();
+    setup({isWinner: true})();
+
+    expect(button).toHaveClass('winner');
   });
 
   it('handles clicks correctly', () => {
     act(() => {
-      userEvent.click(container.querySelector("button"))
+      userEvent.click(button);
     });
     expect(onClick).toHaveBeenCalled();
   });

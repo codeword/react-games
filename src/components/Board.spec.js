@@ -1,6 +1,6 @@
 import React from "react";
 import '@testing-library/jest-dom';
-import {render, screen} from '@testing-library/react'
+import {cleanup, render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event';
 import { act } from "react-dom/test-utils";
 import Board from './Board';
@@ -11,7 +11,11 @@ describe('Block', () => {
     squares = [['a', 'b', 'c'], ['d','e','f']];
     isWinner = (a, b) => a===1;
     onClick = jest.fn();
-    render(<Board {...{squares, isWinner, onClick}}/>);
+    act(() => {render(<Board {...{squares, isWinner, onClick}}/>);});
+  });
+  
+  afterEach(() => {
+    cleanup();
   });
 
   it('renders the board', () => {
