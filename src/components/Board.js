@@ -17,5 +17,5 @@ export default function Board(props){
         ))}
       </div>
   ))
-  return <div className="game-board">{board}</div>;
+  return <div className="game-board" data-testid="game-board">{board}</div>;
 }

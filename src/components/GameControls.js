@@ -9,7 +9,7 @@ export function GameStatus(props) {
     }
   };
   return (
-    <div>{content(props.status)}</div>
+    <div data-testid="game-stats">{content(props.status)}</div>
   );
 }
 export function Moves(props) {

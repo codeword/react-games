@@ -33,6 +33,8 @@ describe('Square', () => {
     });
     it('disables the square', () => {
       expect(button).toBeDisabled();
+      act(() => userEvent.click(button));
+      expect(onClick).not.toHaveBeenCalled();
     });
     describe('Hover states', () => {
       it('is not affected by hover', () => {

@@ -1,5 +1,5 @@
 function calculatePlayer(play) {
-  return play%2===1 ? 'X' : '0';
+  return play%2===1 ? 'X' : 'O';
 }
 
 function calculateWinner(squares) {
