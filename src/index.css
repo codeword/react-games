@@ -38,7 +38,7 @@ ol, ul {
 
 .square:hover {
   background-color: aqua;
-  color: #555
+  color: #888
 }
 
 .square:hover:disabled,
@@ -53,11 +53,6 @@ ol, ul {
 
 .square:focus {
   outline: none;
-}
-
-button {
-  color: #000;
-  background-color: #888;
 }
 
 .kbd-navigation .square:focus {

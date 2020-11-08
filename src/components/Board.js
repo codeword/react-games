@@ -7,7 +7,7 @@ export default function Board(props){
       >
         {row.map((item, colIdx) => (
             <Square
-              currentPlayer={props.currentPlayer}
+              preview={props.currentPlayer}
               key={colIdx}
               id={`square-${rowIdx}-${colIdx}`}
               value={item}
