@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import {cleanup, render, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event';
 import { act } from "react-dom/test-utils";
-import Game from './Game'
+import Game from './TicTacToe'
 
 describe('Game', () => {
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe('Game', () => {
 
   it('renders aboard', () => {
     expect(screen.queryByText("Next player: X")).toBeInTheDocument();
-    let squares = screen.getAllByRole('button');
+    let squares = screen.getAllByTestId(/square-\d-\d/);
     expect(squares).toHaveLength(9);
   });
 
@@ -28,27 +28,23 @@ describe('Game', () => {
     });
     it('shows player moves', () => {
       expect(screen.queryByText("Next player: O")).toBeInTheDocument();
-      expect(within(screen.queryByTestId('moves')).queryAllByRole('button')).toHaveLength(3);
+      expect(within(screen.queryByTestId('moves')).getAllByTestId(/move-\d/)).toHaveLength(3);
       expect(screen.queryByTestId('game-board')).toHaveTextContent("XOX")
-      let firstMove = screen.queryByTestId('move-0');
-      expect(firstMove).toHaveTextContent("X played (0, 0) :Start Over");
-      expect(within(firstMove).queryByRole('button')).toHaveTextContent(/^Start Over$/);
-      let secondMove = screen.queryByTestId('move-1');
-      expect(secondMove).toHaveTextContent("O played (0, 1) :Undo");
-      expect(within(secondMove).queryByRole('button')).toHaveTextContent(/^Undo$/);
+      expect(screen.queryByTestId('move-0')).toHaveTextContent("(0, 0)");
+      expect(screen.queryByTestId('move-1')).toHaveTextContent("(0, 1)");
     });
 
     describe('Undoing a move', () => {
       beforeEach(() => {
         let lastMove = screen.queryByTestId('move-2');
-        expect(lastMove).toHaveTextContent("X played (1, 1) :Undo");
+        expect(lastMove).toHaveTextContent("(1, 1)");
         let sq = square(1,1);
         expect(sq).toHaveTextContent("X");
         expect(sq).toBeDisabled();
-        act(() => userEvent.click(within(lastMove).queryByRole('button')));
+        act(() => userEvent.click(within(lastMove).getByText('(1, 1)')));
       });
       it('Undoes the Move', () => {
-        expect(within(screen.queryByTestId('moves')).queryAllByRole('button')).toHaveLength(2);
+        expect(within(screen.queryByTestId('moves')).getAllByTestId(/move-\d/)).toHaveLength(2);
         expect(screen.queryByText("Next player: X")).toBeInTheDocument();
         let sq = square(1,1);
         expect(sq).toHaveTextContent("");
@@ -58,14 +54,14 @@ describe('Game', () => {
     describe('Starting Over', () => {
       beforeEach(() => {
         let firstMove = screen.queryByTestId('move-0');
-        expect(firstMove).toHaveTextContent("X played (0, 0) :Start Over");
+        expect(firstMove).toHaveTextContent("(0, 0)");
         let sq = square(0,0);
         expect(sq).toHaveTextContent("X");
         expect(sq).toBeDisabled();
-        act(() => userEvent.click(within(firstMove).queryByRole('button')));
+        act(() => userEvent.click(within(firstMove).getByText('(0, 0)')));
       });
       it('Undoes the Move', () => {
-        expect(within(screen.queryByTestId('moves')).queryAllByRole('button')).toHaveLength(0);
+        expect(within(screen.queryByTestId('moves')).queryAllByTestId(/move-\d/)).toHaveLength(0);
         expect(screen.queryByTestId('game-board')).toHaveTextContent("")
         expect(screen.queryByText("Next player: X")).toBeInTheDocument();
       });
@@ -98,7 +94,7 @@ describe('Game', () => {
         act(() => userEvent.click(square(1,0)));
         act(() => userEvent.click(square(2,0)));
         act(() => userEvent.click(square(2,1)));
-        expect(within(screen.queryByTestId('moves')).queryAllByRole('button')).toHaveLength(9);
+        expect(within(screen.queryByTestId('moves')).getAllByTestId(/move-\d/)).toHaveLength(9);
       });
       it('Shows the tie', () => {
         expect(screen.queryByText("Next Player:")).not.toBeInTheDocument();
@@ -106,8 +102,8 @@ describe('Game', () => {
       });
 
       it('Does not highlight any squares', () => {
-        for(let button of within(screen.queryByTestId('game-board')).queryAllByRole('button')) {
-          expect(button).not.toHaveClass("winner")
+        for(let link of within(screen.queryByTestId('game-board')).getAllByTestId(/square-\d-\d/)) {
+          expect(link).not.toHaveClass("winner")
         }
       });
     });

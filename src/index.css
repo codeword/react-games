@@ -67,3 +67,66 @@ ol, ul {
 .game-info {
   margin-left: 20px;
 }
+
+.moves {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  padding: 0;
+  margin: 0;
+  width: 200px;
+}
+.move, .player {
+  list-style: none;
+  flex: 0 0 50%;
+  display: block;
+}
+
+
+.link-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  display: inline;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.link-button:hover,
+.link-button:focus {
+text-decoration: none;
+}
+
+.move .link-button, .player {
+  color: white;
+  text-align: center; 
+  border-top: 1px solid rgba(255, 255, 255,0.3); 
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); 
+}
+
+.move .link-button {
+  background: skyblue;
+  text-decoration: none;
+  padding: 10px 0;
+  display: block;
+}
+
+.player {
+  background: #1565C0;
+  padding: 10px 0;
+}
+
+.move:nth-last-of-type(-n+2) .link-button {
+  border-bottom: none;
+}
+
+.move:hover .link-button {
+  background: #1565C0;
+}
+
+.move:hover ~ li .link-button {
+  background: green;
+}

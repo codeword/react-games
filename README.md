@@ -4,13 +4,13 @@ App from React tutorial, I'm using to re-familiarize myself with JS and React.
 
 # Todo:
 
-- ~~decompose index.js into individule component files~~
+- ~~decompose index.js into individual component files~~
 - ~~backfill tests with Jest~~
 - ~~hover state~~
   - ~~diable used squares~~
   - ~~show shadow of move~~
   - animate - button down/up etc
-- separate 'X' & 'O' moves    
+- ~~separate 'X' & 'O' moves~~   
 - reccommend next move
   - toggle on off
     - per player

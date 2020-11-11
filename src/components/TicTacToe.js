@@ -1,7 +1,8 @@
 import React from 'react'
 import classNames from "classnames";
 import Board from './Board';
-import {Moves, GameStatus} from './GameControls';
+import GameStatus from './GameStatus';
+import Moves from './Moves';
 import * as Calc from '../utils/gameCalculations'
 
 export default class Game extends React.Component {
