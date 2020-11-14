@@ -4,7 +4,7 @@ import {
   Route
 } from 'react-router-dom';
 import _ from 'lodash'
-import TicTacToe from './components/TicTacToe';
+import TicTacToe from './games/TicTacToe';
 
 const GAMES = [
   {

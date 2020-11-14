@@ -3,7 +3,7 @@ import classNames from "classnames";
 import Board from './Board';
 import GameStatus from './GameStatus';
 import Moves from './Moves';
-import * as Calc from '../utils/gameCalculations'
+import * as Calc from './gameCalculations'
 
 export default class Game extends React.Component {
   constructor(props) {
