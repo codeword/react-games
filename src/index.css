@@ -23,14 +23,15 @@ body {
   display: inline-block;
   padding: 10px 15px;
   text-decoration: none;
+}
+
+.nav-bar .nav-item a {
+  background-color: blue;
   color: white;
 }
 
-.nav-item:hover {
+.nav-bar .nav-item:hover a {
   background-color: white;
-}
-
-.nav-item:hover a {
   color: blue;
 }
 
@@ -39,7 +40,8 @@ body {
 }
 
 ol, ul {
-  padding-left: 30px;
+  padding: 0px;
+  list-style: none
 }
 
 .board-row:after {
