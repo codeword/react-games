@@ -5,13 +5,19 @@ import {
 } from 'react-router-dom';
 import _ from 'lodash'
 import TicTacToe from './games/TicTacToe';
+import MasterMind from './games/MastMind'
 
 const GAMES = [
   {
     path: "/tic-tac-toe",
     title: "Tic-Tac-Toe",
     component: <TicTacToe />,
-  }
+  },
+  {
+    path: "/MasterMind",
+    title: "MasterMind",
+    component: <MasterMind />,
+  },
 ]
 
 let makeRoute = (page) => {
