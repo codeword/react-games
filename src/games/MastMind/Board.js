@@ -1,7 +1,8 @@
 
-import {useState, useEffect} from 'react';
-import classNames from 'classnames'
-import _ from 'lodash';
+import {useState, useEffect} from 'react'
+import _ from 'lodash'
+import Colors from './Colors'
+import Color from './Color'
 
 function Code({code, isWinner}) {
   let colors = isWinner ? code.value : code.value.map(x => 11);
@@ -81,18 +82,6 @@ function NextGuess({handleGuess, code}) {
     </div>
   );
 }
-function Colors({colors, onClick}) {
-  return (
-    <ul className="colors">
-      {colors.map((color, index) => (<li key={index}><Color {...{color, onClick, index, className:`c${color}`}}/></li>))}
-    </ul>
-  );
-}
-function Color({color, onClick, index, className}) {
-  let peg = <div className={classNames('color', {[color]: !className}, className)}></div>;
-  return onClick ? (<a href="#" onClick={(e) => onClick(e, color, index)}>{peg}</a>) : peg;
-}
-
 function NewGame({newGame, code}) {
   const [colors, setColors] = useState(code.colors);
   const [slots, setSlots] = useState(code.slots);
