@@ -122,20 +122,21 @@ ol, ul {
 
 
 .link-button {
-  background-color: transparent;
+  background-color: green;
   border: none;
   cursor: pointer;
   text-decoration: underline;
   display: inline;
   margin: 0;
   padding: 0;
-  width: 100%;
-  height: 100%;
+  /* width: 100%;
+  height: 100%; */
 }
 
-.link-button:hover,
-.link-button:focus {
-text-decoration: none;
+.link-button:hover, .link-button:focus {
+  text-decoration: none;
+  border: none;
+  outline: none;
 }
 
 .move .link-button, .player {
@@ -151,7 +152,6 @@ text-decoration: none;
   padding: 10px 0;
   display: block;
 }
-
 .player {
   background: blue;
   padding: 10px 0;
@@ -173,20 +173,27 @@ text-decoration: none;
 .colors, .clues {
   display: flex;
   align-items: center;
-  background-color: #777;
   border: 1px solid white;
 }
-.colors li, .clues li {
-    width: 45px;
-    height: 45px;
-    margin: 10px;
+.colors, .clues, .swatch {
+  background-color: #777;
+}
+.swatch {
+  display: flex;
+  width: 45px;
+  height: 45px;
+  padding: 10px;
 }
 
-.clues li {
+.link-button:focus .swatch .color, .link-button:hover .swatch .color {
+  box-shadow: 0 0 3px white;
+}
+
+.clues .swatch {
   width: 20px;
   height: 20px;
 }
-.colors .color, .clues .color {
+.colors .color, .clues .color, .swatch .color {
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -210,6 +217,11 @@ text-decoration: none;
   --c7: #574b60ff;
   --c8: #3f334dff;
   --c9: #95190cff;
+  --empty: #666;
+  --blank: #aaa;
+  --wrongColor: var(--empty);
+  --wrongSpot: white;
+  --rightSpot: black;
 }
 .color.c0 { background-color: var(--c0); }
 .color.c1 { background-color: var(--c1); }
@@ -221,7 +233,8 @@ text-decoration: none;
 .color.c7 { background-color: var(--c7); }
 .color.c8 { background-color: var(--c8); }
 .color.c9 { background-color: var(--c9); }
-.color.c10 { background-color: #888;}
-.color.c11 { background-color: rgba(48, 47, 47, 0.212);}
-.color.wrongSpot { background-color: white; }
-.color.rightSpot { background-color: black; }
+.color.blank { background-color: var(--blank);}
+.color.empty { background-color: var(--empty);}
+.color.wrongColor { background-color: var(--wrongColor); }
+.color.wrongSpot { background-color: var(--wrongSpot); }
+.color.rightSpot { background-color: var(--rightSpot); }

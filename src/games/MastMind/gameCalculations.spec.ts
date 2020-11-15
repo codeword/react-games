@@ -1,20 +1,35 @@
 import _ from 'lodash'
-import {evaluateGuess, isWinner, newCode} from './gameCalculations';
-describe('newCode', () => {
+import {evaluateGuess, isWinner, createGame, CluePeg, ColorPeg} from './gameCalculations';
+describe('createGame', () => {
   it('returns the correct code size', () => {
-    let code = newCode(1,1);
-    expect(code).toEqual([0]);
-    expect(newCode(10, 2)).toHaveLength(2);
-    expect(newCode(10,10)).toHaveLength(10);
+    let game = createGame(1,1);
+    expect(game).toEqual({
+      code: [ColorPeg[0]],
+      colors: 1,
+      slots: 1,
+      allowDupes: false
+    });
+    expect(createGame(9, 2).code).toHaveLength(2);
+    expect(createGame(9,9).code).toHaveLength(9);
   });
 
   it('does not duplicate values by default', () => {
-    expect(_.uniq(newCode(4,4))).toHaveLength(4);
-    expect(_.uniq(newCode(6,4))).toHaveLength(4);
+    let game1 = createGame(4,4);
+    expect(_.uniq(game1.code)).toEqual(game1.code);
+    expect(game1.allowDupes).toBe(false);
+
+    let game2 = createGame(6,4);
+    expect(_.uniq(game2.code)).toEqual(game2.code);
+    expect(game2.allowDupes).toBe(false);
   });
-  it('does will duplicate values if length > valueCount', () => {
-    expect(_.uniq(newCode(3,4))).toHaveLength(3);
-    expect(_.uniq(newCode(6,4))).toHaveLength(4);
+  it('will duplicate values if length > valueCount', () => {
+    let game1 = createGame(4,6);
+    expect(_.uniq(game1.code).length).toBeLessThanOrEqual(4);
+    expect(game1.allowDupes).toBe(true);
+  });
+  it('will duplicate values if allowDupes is set', () => {
+    let game1 = createGame(9,9,true);
+    expect(game1.allowDupes).toBe(true);
   });
 });
 describe('isWinner', () => {
@@ -41,7 +56,7 @@ describe('evaluateGuess', () => {
       [5,6,3,4],
       [1,2,3,4]
     )).toEqual(
-      [1,1]
+      [1,1,2,2]
     );
   });
   it('shows wrong spot', () => {
@@ -49,7 +64,7 @@ describe('evaluateGuess', () => {
       [5,6,3,4],
       [1,2,4,3]
     )).toEqual(
-      [0,0]
+      [0,0,2,2]
     );
   });
   it('orders results', () => {
@@ -66,8 +81,8 @@ describe('evaluateGuess', () => {
       expect(evaluateGuess(
         [1,1,3,4],
         [1,3,2,4]
-      )).toEqual(
-        [0,1,1]
+      ).map(clue => CluePeg[clue])).toEqual(
+        [0,1,1,2].map(clue => CluePeg[clue])
       );
     });
   });
@@ -78,7 +93,7 @@ describe('evaluateGuess', () => {
         [1,2,3,4],
         [1,1,2,4]
       )).toEqual(
-        [0,1,1]
+        [0,1,1,2]
       );
     });    
 
@@ -86,7 +101,7 @@ describe('evaluateGuess', () => {
       [1,2,3,4],
       [1,3,3,4]
     )).toEqual(
-      [1,1,1]
+      [1,1,1,2]
     );
   });
 });
