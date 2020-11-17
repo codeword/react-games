@@ -13,7 +13,7 @@ const StaticMove = ({move}: {move: Move}) => (
 const Moves = ({moves} : {moves: Move[]}) => {
   if(moves.length === 0) return null;
   return (
-    <ol reversed={true}>
+    <ol reversed={true} className="moves">
       {moves.map((move, idx) => <li key={idx}><StaticMove {...{move}}/></li>)}
     </ol>
   )

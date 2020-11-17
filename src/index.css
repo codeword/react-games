@@ -120,9 +120,8 @@ ol, ul {
   display: block;
 }
 
-
 .link-button {
-  background-color: green;
+  background-color: transparent;
   border: none;
   cursor: pointer;
   text-decoration: underline;
@@ -147,7 +146,6 @@ ol, ul {
 }
 
 .move .link-button {
-  background: skyblue;
   text-decoration: none;
   padding: 10px 0;
   display: block;
@@ -161,22 +159,25 @@ ol, ul {
   border-bottom: none;
 }
 
-.move:hover .link-button {
-  background: #1565C0;
+.TicTacToe .link-button {
+  background-color: green;
 }
 
-.move:hover ~ li .link-button {
+.TicTacToe .move .link-button {
+  background: skyblue;
+}
+.TicTacToe .move:hover .link-button {
+    background: #1565C0;
+}
+
+.TicTacToe .move:hover ~ li .link-button {
   background: green;
 }
-
+ 
 
 .colors, .clues {
   display: flex;
   align-items: center;
-  border: 1px solid white;
-}
-.colors, .clues, .swatch {
-  background-color: #777;
 }
 .swatch {
   display: flex;
@@ -199,13 +200,20 @@ ol, ul {
   border-radius: 50%;
 }
 
-.masterMind {
+.MasterMind {
    display:flex;
-  justify-content: space-between
+  justify-content: center;
 }
-.masterMind .move {
+
+.MasterMind .board {
+  background-image: url("bg.jpg");
+  background-repeat: repeat;
+}
+
+.MasterMind .move {
   display: flex;
 }
+
 :root {
   --c0: #610345ff;
   --c1: #067bc2ff;
@@ -217,7 +225,7 @@ ol, ul {
   --c7: #574b60ff;
   --c8: #3f334dff;
   --c9: #95190cff;
-  --empty: #666;
+  --empty: #00000038;
   --blank: #aaa;
   --wrongColor: var(--empty);
   --wrongSpot: white;

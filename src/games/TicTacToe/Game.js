@@ -46,7 +46,7 @@ export default class Game extends React.Component {
     let winningSquares = Calc.calculateWinner(current.squares);
     let gameStatus = Calc.gameStatus(current.squares, this.state.moves.length);
     return (
-      <div className={classNames("game", {over: !!winningSquares})}>
+      <div className={classNames("game", "TicTacToe", {over: !!winningSquares})}>
         <Board
           currentPlayer={gameStatus.player}
           isWinner={(row, col) => winningSquares && winningSquares.some((item) => item[0] === row && item[1] === col)}
