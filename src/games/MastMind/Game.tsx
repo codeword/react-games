@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Board from './Board';
 import { ColorPeg, createGame, evaluateGuess, PlayableColor, isWinner as foo} from './gameCalculations';
 import type { Move } from './gameCalculations';
+import NewGame from './NewGame';
 
 export type newGameType = (pegCount:ColorPeg, slotCount:number, allowDupes:boolean) => void;
 
@@ -29,7 +30,10 @@ export default function Game() {
   }
 
   return (
-    <div>
+    <div className="game MasterMind">
+      <div className="controls">
+        <NewGame {...{newGame, game}}/>
+      </div>
       <Board {...{game, moves, handleGuess, newGame, isWinner:isWinner()}} />
     </div>
   );
