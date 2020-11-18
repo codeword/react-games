@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Colors from './Colors';
 import { newGameType } from './Game';
-import { ColorPeg, Game, pallette } from './gameCalculations';
+import { ColorPeg, Game, palette } from './gameCalculations';
 
 const NewGame = ({newGame: createGame, game}:{newGame:newGameType, game: Game}) => {
   const [colors, setColors] = useState(game.colors);
@@ -31,7 +31,7 @@ const NewGame = ({newGame: createGame, game}:{newGame:newGameType, game: Game}) 
         <button onClick={() => safeSetCounts(colors-1, slots)}>-</button>
         <button onClick={() => safeSetCounts(colors+1, slots)}>+</button>
         <label>colors:</label>
-        <span><Colors colors={pallette(colors)} /></span>
+        <span><Colors colors={palette(colors)} /></span>
       </div>
       <div>
         <button onClick={() => safeSetCounts(colors, slots-1)}>-</button>

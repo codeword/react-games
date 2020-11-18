@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 import _ from 'lodash'
 import TicTacToe from './games/TicTacToe';
-import MasterMind from './games/MastMind'
+import MasterMind from './games/MindMaster'
 
 const GAMES = [
   {

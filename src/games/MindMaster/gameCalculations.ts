@@ -23,6 +23,7 @@ export enum CluePeg {
   wrongColor
 }
 
+
 export type FillColor = keyof typeof FillPeg;
 export type ClueColor = keyof typeof CluePeg;
 export type CodeColor = keyof typeof ColorPeg;
@@ -39,14 +40,14 @@ export type Game = {
   allowDupes: boolean
 }
 export type Move = {
-  guess: PlayableColor[],
-  clue: CluePeg[]
+  guess: PlayableColor[] | EmptyColor[],
+  clue: ClueColor[]
 }
 
 // type CreateGame = (  ) => Game
 export const createGame = (colors: ColorPeg, slots: number, allowDupes?: boolean) : Game => {
   let code: CodeColor[] = [];
-  let values = pallette(colors) as CodeColor[];
+  let values = palette(colors) as CodeColor[];
   allowDupes = allowDupes || colors < slots;
   while(code.length < slots) {
     let nextIdx = _.random(values.length-1);
@@ -57,18 +58,24 @@ export const createGame = (colors: ColorPeg, slots: number, allowDupes?: boolean
 }
 
 
-export const isWinner = (code: CodeColor[], clue:CluePeg[]): boolean => {
-  return (code.length === clue.length && _.every(clue, peg => peg === CluePeg.rightSpot));
+export const isWinner = (code: CodeColor[], clue:ClueColor[]): boolean => {
+  return (code.length === clue.length && _.every(clue, peg => CluePeg[peg] === CluePeg.rightSpot));
 }
 
 type ClearablePeg = PlayableColor|-1;
-export const evaluateGuess:(code:CodeColor[], guess:PlayableColor[]) => CluePeg[] = (...args) => {
-  let clue: CluePeg[] = [];
+export const evaluateGuess:(code:CodeColor[], guess:PlayableColor[]) => ClueColor[] = (...args) => {
+  let [rightSpot, wrongSpot, wrongColor] = [
+    CluePeg.rightSpot,
+    CluePeg.wrongSpot,
+    CluePeg.wrongColor
+  ].map(x => CluePeg[x]) as ClueColor[];
+
+  let clue: ClueColor[] = [];
   let code = args[0].slice() as ClearablePeg[];
   let guess = args[1].slice() as ClearablePeg[];
   for (let i = code.length-1; i >= 0; i--) {
     if(code[i] !== -1 && code[i] === guess[i]) {
-      clue.push(CluePeg.rightSpot);
+      clue.push(rightSpot);
       code[i] = -1;
       guess[i] = -1;
     }
@@ -78,15 +85,15 @@ export const evaluateGuess:(code:CodeColor[], guess:PlayableColor[]) => CluePeg[
     let codeIdx = _.indexOf(code, peg);
     if(codeIdx >= 0) {
       code[codeIdx] = -1;
-      acc.unshift(CluePeg.wrongSpot);
+      acc.unshift(wrongSpot);
     } else {
-      acc.push(CluePeg.wrongColor);
+      acc.push(wrongColor);
     }
     return acc;
   }, clue);
 }
 
-export const pallette = (numColors: number, includeBlank = false): PlayableColor[] | CodeColor[] => {
+export const palette = (numColors: number, includeBlank = false): PlayableColor[] | CodeColor[] => {
   let colors = _.range(numColors).map((color: number) => ColorPeg[color]) as PlayableColor[];
   if(includeBlank) {
     colors.push(FillPeg.blank);

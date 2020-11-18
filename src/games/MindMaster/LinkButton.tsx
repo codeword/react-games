@@ -1,7 +1,8 @@
 import React from 'react'
 import classNames from 'classnames/dedupe'
 
-export type LinkButtonProps = React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>>;
+type LinkButtonProps = React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>>;
+export type ButtonEventType = React.MouseEvent<HTMLButtonElement, MouseEvent>
 
 const LinkButton: LinkButtonProps = ({className, ...props}) => {
   return (

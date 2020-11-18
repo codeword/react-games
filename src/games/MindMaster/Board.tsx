@@ -1,7 +1,7 @@
 import React from 'react'
 import Colors from './Colors'
 import NextGuess from './NextGuess'
-import { FillPeg } from './gameCalculations'
+import { AnyColor, FillPeg } from './gameCalculations'
 import type { Game, Move, PlayableColor } from './gameCalculations'
 import { newGameType } from './Game'
 import Moves from './Moves'
@@ -17,13 +17,15 @@ type BoardProps = {
   handleGuess: (guess: PlayableColor[]) => void,
   newGame:newGameType,
   isWinner:boolean
+  guess: AnyColor[],
+  setGuess: React.Dispatch<React.SetStateAction<AnyColor[]>>
 }
-export default function Board({game, moves, handleGuess, newGame, isWinner}:BoardProps){
+export default function Board({game, moves, handleGuess, newGame, isWinner, guess, setGuess}:BoardProps){
   return (
     <div className="board">
       <Code {...{game, isWinner}}/>
+      <NextGuess {...{handleGuess, game, guess, setGuess}} />
       <Moves {...{moves, game}}/>
-      <NextGuess {...{handleGuess, game}} />
     </div>
   );
 }

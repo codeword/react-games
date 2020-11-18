@@ -1,5 +1,6 @@
 import _ from 'lodash'
-import {evaluateGuess, isWinner, createGame, CluePeg, ColorPeg} from './gameCalculations';
+import {evaluateGuess, isWinner, createGame, CluePeg, ColorPeg, FillPeg, PlayableColor, CodeColor, AnyColor, ClueColor} from './gameCalculations';
+
 describe('createGame', () => {
   it('returns the correct code size', () => {
     let game = createGame(1,1);
@@ -34,55 +35,68 @@ describe('createGame', () => {
 });
 describe('isWinner', () => {
   it('is true if all pegs are in the right position', () => {
-    expect(isWinner([1,2,3,4], [1,1,1,1])).toBe(true);
-    expect(isWinner([2,3,4], [1,1,1])).toBe(true);
+    expect(isWinner(
+      ['c1','c2','c3','c4'], 
+      ['rightSpot','rightSpot','rightSpot','rightSpot']
+    )).toBe(true);
+    expect(isWinner(
+      ['c2','c3','c4'], 
+      ['rightSpot','rightSpot','rightSpot']
+    )).toBe(true);
   });
   it('is true if all pegs are in the right position', () => {
-    expect(isWinner([1,2,3,4], [0,1,1,1])).toBe(false);
-    expect(isWinner([1,2,3,4], [1,1,1])).toBe(false);
+    expect(isWinner(
+      ['c1','c2','c3','c4'], 
+      ['wrongSpot','rightSpot','rightSpot','rightSpot']
+    )).toBe(false);
+    expect(isWinner(
+      ['c1','c2','c3','c4'], 
+      ['rightSpot','rightSpot','rightSpot']
+    )).toBe(false);
   });
 });
 describe('evaluateGuess', () => {
   it('shows matching pegs', () => {
     expect(evaluateGuess(
-      [1,2,3,4],
-      [1,2,3,4]
+      ['c1','c2','c3','c4'],
+      ['c1','c2','c3','c4']
     )).toEqual(
-      [1,1,1,1]
+      ['rightSpot','rightSpot','rightSpot','rightSpot']
     );
   });
   it('only shows matching pegs', () => {
     expect(evaluateGuess(
-      [5,6,3,4],
-      [1,2,3,4]
+      ['c5','c6','c3','c4'],
+      ['c1','c2','c3','c4']
     )).toEqual(
-      [1,1,2,2]
+      ['rightSpot','rightSpot','wrongColor','wrongColor']
     );
   });
   it('shows wrong spot', () => {
-    expect(evaluateGuess(
-      [5,6,3,4],
-      [1,2,4,3]
-    )).toEqual(
-      [0,0,2,2]
+    let x = evaluateGuess(
+      ['c5','c6','c3','c4'],
+      ['c1','c2','c4','c3']
+    );
+    expect(x).toEqual(
+      ['wrongSpot','wrongSpot','wrongColor','wrongColor']
     );
   });
   it('orders results', () => {
     expect(evaluateGuess(
-      [1,2,3,4],
-      [3,2,1,4]
+      ['c1','c2','c3','c4'],
+      ['c3','c2','c1','c4']
     )).toEqual(
-      [0,0,1,1]
+      ['wrongSpot','wrongSpot','rightSpot','rightSpot']
     );
   });
 
   describe('duplicates in code', () => {
     it('only shows once in clue', () => {
       expect(evaluateGuess(
-        [1,1,3,4],
-        [1,3,2,4]
-      ).map(clue => CluePeg[clue])).toEqual(
-        [0,1,1,2].map(clue => CluePeg[clue])
+        ['c1','c1','c3','c4'],
+        ['c1','c3','c2','c4']
+      )).toEqual(
+        ['wrongSpot','rightSpot','rightSpot','wrongColor']
       );
     });
   });
@@ -90,18 +104,18 @@ describe('evaluateGuess', () => {
   describe('duplicates in guess', () => {
     it('only shows once in clue', () => {
       expect(evaluateGuess(
-        [1,2,3,4],
-        [1,1,2,4]
+        ['c1','c2','c3','c4'],
+        ['c1','c1','c2','c4']
       )).toEqual(
-        [0,1,1,2]
+        ['wrongSpot','rightSpot','rightSpot','wrongColor']
       );
     });    
 
     expect(evaluateGuess(
-      [1,2,3,4],
-      [1,3,3,4]
+      ['c1','c2','c3','c4'],
+      ['c1','c3','c3','c4']
     )).toEqual(
-      [1,1,1,2]
+      ['rightSpot','rightSpot','rightSpot','wrongColor']
     );
   });
 });

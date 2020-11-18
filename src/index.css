@@ -138,14 +138,14 @@ ol, ul {
   outline: none;
 }
 
-.move .link-button, .player {
+.TicTacToe .move .link-button,.TicTacToe .player {
   color: white;
   text-align: center; 
   border-top: 1px solid rgba(255, 255, 255,0.3); 
   border-bottom: 1px solid rgba(0, 0, 0, 0.1); 
 }
 
-.move .link-button {
+.TicTacToe .move .link-button {
   text-decoration: none;
   padding: 10px 0;
   display: block;
@@ -200,17 +200,18 @@ ol, ul {
   border-radius: 50%;
 }
 
-.MasterMind {
+.MindMaster {
    display:flex;
   justify-content: center;
 }
 
-.MasterMind .board {
-  background-image: url("bg.jpg");
+.MindMaster .board {
+  /* background-image: url("games/MindMaster/board.svg"); */
+  background-image: url("games/MindMaster/board.jpg");
   background-repeat: repeat;
 }
 
-.MasterMind .move {
+.MindMaster .move {
   display: flex;
 }
 
