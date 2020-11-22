@@ -112,9 +112,8 @@ ol, ul {
   justify-content: flex-start;
   padding: 0;
   margin: 0;
-  width: 200px;
 }
-.move, .player {
+.TicTacToe .move, .player {
   list-style: none;
   flex: 0 0 50%;
   display: block;
@@ -179,41 +178,15 @@ ol, ul {
   display: flex;
   align-items: center;
 }
-.swatch {
-  display: flex;
-  width: 45px;
-  height: 45px;
-  padding: 10px;
-}
 
-.link-button:focus .swatch .color, .link-button:hover .swatch .color {
-  box-shadow: 0 0 3px white;
-}
-
-.clues .swatch {
-  width: 20px;
-  height: 20px;
-}
-.colors .color, .clues .color, .swatch .color {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-
-.MindMaster {
+/* .MindMaster {
    display:flex;
   justify-content: center;
-}
+} */
 
-.MindMaster .board {
-  /* background-image: url("games/MindMaster/board.svg"); */
-  background-image: url("games/MindMaster/board.jpg");
-  background-repeat: repeat;
-}
-
-.MindMaster .move {
+/* .MindMaster .move {
   display: flex;
-}
+} */
 
 :root {
   --c0: #610345ff;
@@ -247,3 +220,99 @@ ol, ul {
 .color.wrongColor { background-color: var(--wrongColor); }
 .color.wrongSpot { background-color: var(--wrongSpot); }
 .color.rightSpot { background-color: var(--rightSpot); }
+
+
+.master-mind.game {
+  --peg-margin: 3;
+  --palette-peg: 45;
+  --clue-peg: calc(var(--palette-peg) * (3/5));
+  --move-width: calc(
+      (
+        var(--palette-peg) * var(--slot-count)
+      ) + (
+        var(--clue-peg) * var(--slot-count)
+      )
+  );
+  height:100%;
+  display: flex;  
+  flex-flow: row wrap;
+  text-align: center;
+  justify-content: center;
+  min-width: calc(max(var(--move-width), calc(var(--palette-peg) * var(--color-count))) * 1px);
+}
+
+.master-mind.game > * {
+  flex: 0 0 100%;
+}
+
+.master-mind.game .board {
+  background-image: url("games/MindMaster/board.jpg");
+  background-repeat: repeat;
+  max-width: calc(var(--move-width) * 1px);
+  min-width: calc(var(--move-width) * 1px);
+  height: calc(100vh - (var(--palette-peg) + 1) * 1px);
+}
+
+.master-mind.game .board, 
+.master-mind.game .palette {
+  max-height:100%;
+  overflow:auto;
+}
+.master-mind.game .code {
+  text-align: left;
+}
+
+.link-button:focus .peg .color, 
+.link-button:hover .peg .color {
+  box-shadow: 0 0 3px white;
+}
+.swatch {
+  /* display: flex;
+  width: 45px;
+  height: 45px;
+  padding: 10px; */
+}
+
+.clues .swatch {
+  /* width: 20px; */
+  /* height: 20px; */
+}
+
+.peg .color {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.master-mind.game .pegs {
+  display: inline-flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+}
+.master-mind.game .peg {
+  margin: calc(var(--peg-margin) * 1px);
+  /* background-color: blue; */
+}
+.master-mind.game .peg,
+.master-mind.game .palette .peg {
+  width: calc((var(--palette-peg) - var(--peg-margin) * 2) * 1px);
+  height: calc((var(--palette-peg) - var(--peg-margin) * 2) * 1px);
+}
+.master-mind.game .clue .peg {
+  width: calc((var(--clue-peg) - var(--peg-margin) * 2) * 1px);
+  height:calc((var(--clue-peg) - var(--peg-margin) * 2) * 1px);
+}
+.master-mind.game .move {
+  display:flex;
+  align-items:center;
+}
+
+@media all and (min-width: 605px) {
+  .master-mind.game .palette { 
+    min-width: calc((var(--palette-peg) * 3) * 1px); 
+    max-width: calc((var(--palette-peg) * 3) * 1px); 
+  }
+  .master-mind.game .board {
+      height: calc(100vh);
+  }
+}

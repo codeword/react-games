@@ -1,7 +1,7 @@
 import React from 'react'
 import { AnyColor, PlayableColor } from "./gameCalculations";
 import LinkButton, { ButtonEventType } from "./LinkButton";
-import Swatch from "./Swatch";
+import Peg from "./Peg";
 
 
 type SwatchHandler = (props:{color: PlayableColor, index: number}) => void;
@@ -19,7 +19,7 @@ const capture:CaptureType = (handler, color, index) => {
 }
 const toSwatches = (onClick?: SwatchHandler): (value: AnyColor, index: number) => JSX.Element => {
   return (color, index) => {
-    let swatch = <Swatch {...{ color }} />
+    let swatch = <Peg {...{ color }} />
     if (onClick) {
       swatch = <LinkButton {...{ onClick: capture(onClick, color as PlayableColor, index) }}>{swatch}</LinkButton>
     }

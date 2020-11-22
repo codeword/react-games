@@ -1,31 +1,23 @@
 import React from 'react'
-import Colors from './Colors'
-import Clues from './Clues'
-import{ ClueColor, CluePeg, EmptyColor, FillPeg, Game, Move } from './gameCalculations'
-import _ from 'lodash'
+import Clue from './Clue'
+import{ MoveType } from './gameCalculations'
+import Pegs, { PegHandler } from './Pegs'
 
-const StaticMove = ({move}: {move: Move}) => (
-  <div className="move">
-    <Colors colors={move.guess}/>
-    <Clues clues={move.clue as ClueColor[]}/>
-  </div> 
+export const Move = ({move, key, onClick}: {move: MoveType, key: number, onClick?: PegHandler}) => (
+  <li key={key} className="move">
+    <div className="slots">
+      <Pegs pegs={move.guess} onClick={onClick}/>
+    </div>
+    <Clue clues={move.clue}/>
+  </li>
 );
 
-
-const Moves = (props : {moves: Move[], game: Game}) => {
-  let moves;
-  if(props.moves.length < 10) {
-    moves = _.times(10 - props.moves.length, () => {
-      let guess = _.times(props.game.slots).map(() => FillPeg[FillPeg.empty]) as EmptyColor[];
-      let clue = _.times(props.game.slots).map(() => CluePeg[CluePeg.wrongColor]) as ClueColor[];
-      return { guess, clue } as Move;
-    }).concat(props.moves)
-  } else {
-    moves = props.moves;
-  }
+type MyProps = {moves: MoveType[], onClick?: PegHandler};
+const Moves:React.FunctionComponent<MyProps> = ({moves, onClick, children}) => {
   return (
     <ol className="moves">
-      {moves.slice().reverse().map((move, idx) => <li key={idx}><StaticMove {...{move}}/></li>)}
+      {children}
+      {moves.map((move, key) => <Move {...{move, key, onClick}}/>).reverse()}
     </ol>
   )
 }

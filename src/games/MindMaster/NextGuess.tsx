@@ -4,17 +4,17 @@ import {
   ClueColor,
   CluePeg,
   FillPeg,
-  PlayableColor
+  MoveType,
 } from './gameCalculations'
 import type { 
-  Game,
   AnyColor,
 } from './gameCalculations'
-import Colors from './Colors'
-import Clues from './Clues'
+import Clue from './Clue'
+import Pegs from './Pegs'
+import { Move } from './Moves'
 
 
-const NextGuess = ({handleGuess, game, guess, setGuess}: {handleGuess: (guess: PlayableColor[]) => void, game:Game, guess:AnyColor[], setGuess: React.Dispatch<React.SetStateAction<AnyColor[]>>}) => {
+const NextGuess = ({guess, setGuess}: {guess:AnyColor[], setGuess: (guess:AnyColor[]) => void}) => {
   let deselectColor = ({index:slotIndex}:{index: number}):void => {
     let nextGuess = guess.slice();
     nextGuess[slotIndex] = FillPeg.empty;
@@ -22,15 +22,11 @@ const NextGuess = ({handleGuess, game, guess, setGuess}: {handleGuess: (guess: P
   }
 
   let clues = _.range(guess.length).map(() => CluePeg[CluePeg.wrongColor]) as ClueColor[];
-  return (
-    <div className="next-guess">
-      <div className="move">
-        <Colors colors={guess} onClick={deselectColor} />
-        <Clues clues={clues}/>
-      </div>
-      {/* <Colors colors={palette(game.colors, true)} onClick={selectColor} /> */}
-    </div>
-  );
+  let move = {
+    guess: guess,
+    clue: clues
+  } as MoveType
+  return <Move key={99} {...{move, onClick:deselectColor}}/>;
 }
 
 export default NextGuess;

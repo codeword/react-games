@@ -2,10 +2,10 @@ import React from 'react'
 import classNames from 'classnames'
 import { AnyColor } from './gameCalculations'
 
-const Swatch = ({color}: {color: AnyColor}) => (
-  <div className="swatch">
+const Peg = ({color}: {color: AnyColor}) => (
+  <div className="peg">
     <div className={classNames('color', color)}/>
   </div>
 )
 
-export default Swatch;
+export default Peg;

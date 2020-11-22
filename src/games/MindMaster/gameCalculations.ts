@@ -33,19 +33,19 @@ export type PlayableColor = CodeColor | BlankColor;
 export type AnyColor = PlayableColor | FillColor | ClueColor;
 
 
-export type Game = {
+export type GameType = {
   code: CodeColor[],
   colors: ColorPeg, 
   slots: number, 
   allowDupes: boolean
 }
-export type Move = {
+export type MoveType = {
   guess: PlayableColor[] | EmptyColor[],
   clue: ClueColor[]
 }
 
 // type CreateGame = (  ) => Game
-export const createGame = (colors: ColorPeg, slots: number, allowDupes?: boolean) : Game => {
+export const createGame = (colors: ColorPeg, slots: number, allowDupes?: boolean) : GameType => {
   let code: CodeColor[] = [];
   let values = palette(colors) as CodeColor[];
   allowDupes = allowDupes || colors < slots;
