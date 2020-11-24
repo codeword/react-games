@@ -189,6 +189,7 @@ ol, ul {
 } */
 
 :root {
+  --gradientStart: #FFFFFFFF;
   --c0: #610345ff;
   --c1: #067bc2ff;
   --c2: #84bcdaff;
@@ -199,27 +200,27 @@ ol, ul {
   --c7: #574b60ff;
   --c8: #3f334dff;
   --c9: #95190cff;
-  --empty: #00000038;
-  --blank: #aaa;
+  --empty: #55555555;
+  --blank: #55555555;
   --wrongColor: var(--empty);
   --wrongSpot: white;
   --rightSpot: black;
 }
-.color.c0 { background-color: var(--c0); }
-.color.c1 { background-color: var(--c1); }
-.color.c2 { background-color: var(--c2); }
-.color.c3 { background-color: var(--c3); }
-.color.c4 { background-color: var(--c4); }
-.color.c5 { background-color: var(--c5); }
-.color.c6 { background-color: var(--c6); }
-.color.c7 { background-color: var(--c7); }
-.color.c8 { background-color: var(--c8); }
-.color.c9 { background-color: var(--c9); }
-.color.blank { background-color: var(--blank);}
-.color.empty { background-color: var(--empty);}
-.color.wrongColor { background-color: var(--wrongColor); }
-.color.wrongSpot { background-color: var(--wrongSpot); }
-.color.rightSpot { background-color: var(--rightSpot); }
+.color.c0         { color: var(--c0);         background-image: radial-gradient(circle at left 20% top 20% ,var(--c0) 50%, var(--gradientStart)); }
+.color.c1         { color: var(--c1);         background-image: radial-gradient(circle at left 20% top 20% ,var(--c1) 50%, var(--gradientStart)); }
+.color.c2         { color: var(--c2);         background-image: radial-gradient(circle at left 20% top 20% ,var(--c2) 50%, var(--gradientStart)); }
+.color.c3         { color: var(--c3);         background-image: radial-gradient(circle at left 20% top 20% ,var(--c3) 50%, var(--gradientStart)); }
+.color.c4         { color: var(--c4);         background-image: radial-gradient(circle at left 20% top 20% ,var(--c4) 50%, var(--gradientStart)); }
+.color.c5         { color: var(--c5);         background-image: radial-gradient(circle at left 20% top 20% ,var(--c5) 50%, var(--gradientStart)); }
+.color.c6         { color: var(--c6);         background-image: radial-gradient(circle at left 20% top 20% ,var(--c6) 50%, var(--gradientStart)); }
+.color.c7         { color: var(--c7);         background-image: radial-gradient(circle at left 20% top 20% ,var(--c7) 50%, var(--gradientStart)); }
+.color.c8         { color: var(--c8);         background-image: radial-gradient(circle at left 20% top 20% ,var(--c8) 50%, var(--gradientStart)); }
+.color.c9         { color: var(--c9);         background-image: radial-gradient(circle at left 20% top 20% ,var(--c9) 50%, var(--gradientStart)); }
+.color.blank      { color: var(--blank);      background-image: radial-gradient(circle at left 20% top 20% ,var(--blank) 50%, var(--gradientStart)); }
+.color.empty      { color: var(--empty);      background-image: radial-gradient(circle at left 30% top 30% ,#51251c90, #54272252 67%); }
+.color.wrongColor { color: var(--wrongColor); background-image: radial-gradient(circle at left 30% top 30% ,#51251c90, #54272252 67%); }
+.color.wrongSpot  { color: var(--wrongSpot);  background-image: radial-gradient(circle at left 20% top 20% ,var(--wrongSpot) 50%, var(--blank)); }
+.color.rightSpot  { color: var(--rightSpot);  background-image: radial-gradient(circle at left 20% top 20% ,var(--rightSpot) 50%, var(--gradientStart)); }
 
 
 .master-mind.game {
@@ -247,10 +248,11 @@ ol, ul {
 
 .master-mind.game .board {
   background-image: url("games/MindMaster/board.jpg");
+  background-attachment: local;
   background-repeat: repeat;
   max-width: calc(var(--move-width) * 1px);
   min-width: calc(var(--move-width) * 1px);
-  height: calc(100vh - (var(--palette-peg) + 1) * 1px);
+  height: calc(100vh - (var(--palette-peg) + 140) * 1px);
 }
 
 .master-mind.game .board, 
@@ -313,6 +315,6 @@ ol, ul {
     max-width: calc((var(--palette-peg) * 3) * 1px); 
   }
   .master-mind.game .board {
-      height: calc(100vh);
+      height: calc(100vh - 87px);
   }
 }
